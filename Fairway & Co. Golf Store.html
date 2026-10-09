@@ -1,0 +1,814 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fairway &amp; Co. Golf Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: 1360px retail grid — sticky header, pill controls, product tiles on a warm fairway-green system (from the Fairway & Co. design) */
+:root{
+  --bg:#F6F5F0; --surface:#FFFFFF; --sunk:#F1EFE8; --tile:#EFEDE6; --line:#E2E0D8; --line2:#C9C6BB;
+  --fg:#15201B; --muted:#4A554F; --soft:#5A635E;
+  --green:#0F3D2E; --green2:#1C5C45; --on-green:#F6F5F0; --green-soft:#C9D6CE;
+  --accent:#D6E86A; --on-accent:#0F3D2E; --sale:#B3261E; --ok:#1C7A4A;
+  --hero:#1C4A3A;
+  --display:'Barlow Condensed',system-ui,sans-serif;
+  --body:'Manrope',system-ui,-apple-system,sans-serif;
+  --r:16px; --shadow:0 18px 50px rgba(15,61,46,.18);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1512; --surface:#16201B; --sunk:#1B2621; --tile:#202C26; --line:#2A3832; --line2:#3B4A43;
+  --fg:#EEF1EC; --muted:#AEB9B2; --soft:#9AA69F;
+  --green:#D6E86A; --green2:#E4F08F; --on-green:#0F1F18; --green-soft:#2D4A3E;
+  --accent:#D6E86A; --on-accent:#0F3D2E; --sale:#FF8A7A; --ok:#7FD3A2;
+  --hero:#123629; --shadow:0 18px 50px rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1512; --surface:#16201B; --sunk:#1B2621; --tile:#202C26; --line:#2A3832; --line2:#3B4A43;
+  --fg:#EEF1EC; --muted:#AEB9B2; --soft:#9AA69F;
+  --green:#D6E86A; --green2:#E4F08F; --on-green:#0F1F18; --green-soft:#2D4A3E;
+  --accent:#D6E86A; --on-accent:#0F3D2E; --sale:#FF8A7A; --ok:#7FD3A2;
+  --hero:#123629; --shadow:0 18px 50px rgba(0,0,0,.5); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--green)} a:hover{color:var(--green2)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+h1,h2,h3{text-wrap:balance}
+.wrap{max-width:1360px;margin:0 auto;padding-inline:24px}
+@media (max-width:600px){.wrap{padding-inline:16px}}
+.disp{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:.95;margin:0;color:var(--green)}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* bars */
+.promo{background:#0F3D2E;color:#F6F5F0;font-size:13px;font-weight:600;letter-spacing:.02em;padding:9px 16px;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 32px;text-align:center}
+.promo b{color:#D6E86A;font-weight:700}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+.hrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--green);background:none;border:0;padding:0}
+.logo span{font-family:var(--display);font-weight:800;font-size:28px;letter-spacing:.04em;white-space:nowrap}
+.search{flex:1 1 300px;display:flex;align-items:center;gap:10px;background:var(--sunk);border-radius:999px;padding:0 18px;height:46px;min-width:0}
+.search input{flex:1;border:0;background:transparent;outline:none;font-size:15px;min-width:0}
+.icons{display:flex;gap:4px;align-items:center;margin-left:auto}
+.iconbtn{position:relative;height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;border:0;background:transparent;color:var(--fg);padding:0 10px;font-weight:800;font-size:14px}
+.iconbtn:hover{background:var(--sunk)}
+.cartbtn{background:var(--sunk);padding:0 16px}
+.badge-n{min-width:22px;height:22px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
+.cats{display:flex;gap:4px 26px;font-weight:800;font-size:14px;letter-spacing:.04em;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.cats::-webkit-scrollbar{display:none}
+.cats button{background:none;border:0;padding:12px 0 14px;color:var(--fg);border-bottom:3px solid transparent;font-weight:800;letter-spacing:.04em}
+.cats button[aria-current="true"]{border-bottom-color:var(--accent)}
+.cats button.sale{color:var(--sale)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;border:0;font-weight:800;font-size:15px;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--green);color:var(--on-green)}
+.btn-primary:hover{filter:brightness(1.12);color:var(--on-green)}
+.btn-accent{background:var(--accent);color:var(--on-accent)}
+.btn-ghost{background:transparent;border:2px solid currentColor;color:inherit}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.pill{min-height:42px;padding:0 18px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid var(--line2);background:var(--surface);color:var(--fg)}
+.pill[aria-pressed="true"]{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.opt{min-height:44px;min-width:56px;padding:0 16px;border-radius:12px;font-weight:700;font-size:14px;border:2px solid var(--line2);background:var(--surface);color:var(--fg)}
+.opt[aria-pressed="true"]{background:var(--green);color:var(--on-green);border-color:var(--green)}
+
+/* hero */
+.hero{position:relative;border-radius:22px;overflow:hidden;background:var(--hero);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);min-height:480px}
+.hero-copy{position:relative;z-index:1;padding:56px;display:flex;flex-direction:column;justify-content:flex-end;gap:18px;color:#F6F5F0}
+.hero-copy h1{font-family:var(--display);font-weight:800;font-size:clamp(52px,7.4vw,104px);line-height:.9;margin:0;text-transform:uppercase}
+.hero-copy p{margin:0;font-size:18px;line-height:1.6;max-width:30em;color:#DCE4DF}
+.hero-art{position:relative;min-height:280px}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.hero-copy{padding:32px 24px 36px;order:2}.hero-art{min-height:220px}}
+
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.trust div{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.trust b{display:block;font-size:15px}.trust small{font-size:13px;color:var(--muted)}
+.trust svg{flex:none;color:var(--green)}
+
+.sec{padding-block:44px 8px}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:22px}
+.sec-head h2{font-size:44px}
+.linkbtn{background:none;border:0;padding:0;font-weight:700;color:var(--green);text-decoration:underline;text-underline-offset:3px}
+
+.catgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.catcard{background:none;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px;color:var(--fg)}
+.catcard .art{aspect-ratio:1/1;max-width:100%;border-radius:16px;background:var(--tile);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.catcard:hover .art{transform:translateY(-3px)}
+.catcard span{font-weight:700;font-size:16px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.card .open{all:unset;cursor:pointer;display:flex;flex-direction:column;flex:1}
+.card .open:focus-visible{outline:3px solid var(--accent)}
+.card .art{position:relative;aspect-ratio:1/1;max-width:100%;background:var(--tile);display:flex;align-items:center;justify-content:center}
+.card .art svg{width:78%;height:78%}
+.tag{position:absolute;top:12px;left:12px;background:var(--green);color:var(--on-green);font-size:11px;font-weight:800;letter-spacing:.06em;padding:5px 10px;border-radius:999px}
+.tag.sale{background:var(--sale);color:#fff}
+.card .info{padding:16px 18px 6px;display:flex;flex-direction:column;gap:5px}
+.card .name{font-weight:700;font-size:16px;line-height:1.35}
+.card .meta{font-size:13px;color:var(--muted)}
+.price{font-weight:800;font-size:18px}
+.was{font-weight:600;font-size:14px;color:var(--soft);text-decoration:line-through;margin-left:8px}
+.card .act{padding:8px 18px 18px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.quick{height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line2);background:var(--surface);font-weight:800;font-size:13px;color:var(--fg)}
+.quick:hover{background:var(--green);color:var(--on-green);border-color:var(--green)}
+
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.splitcard{position:relative;min-height:340px;border-radius:20px;overflow:hidden;border:0;padding:32px;text-align:left;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;color:#15201B}
+.splitcard .disp{font-size:46px;color:#15201B;position:relative}
+.splitcard u{font-weight:700;position:relative}
+.splitcard svg{position:absolute;right:-10px;top:10px;width:62%;height:80%}
+
+.brands{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.brands button{height:88px;background:var(--surface);border:1px solid var(--line);border-radius:14px;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.brands button:hover{color:var(--green);border-color:var(--green)}
+
+.services{background:#0F3D2E;color:#F6F5F0;margin-top:48px}
+.services .in{padding-block:64px;display:flex;flex-direction:column;gap:36px}
+.services h2{font-family:var(--display);font-weight:800;font-size:52px;text-transform:uppercase;line-height:.95;margin:0;max-width:640px}
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+.svc h3{margin:12px 0 6px;font-size:19px}.svc p{margin:0;color:#C9D6CE;line-height:1.6}
+
+.news{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding-block:56px}
+.news form{display:flex;flex-wrap:wrap;gap:10px;flex:0 1 520px}
+.field{height:52px;border:1px solid var(--line2);border-radius:999px;padding:0 20px;background:var(--surface);font-size:15px;min-width:0}
+
+footer.site{border-top:1px solid var(--line);background:var(--surface)}
+.fgrid{padding-block:48px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:28px;font-size:14px}
+.fgrid div{display:flex;flex-direction:column;gap:9px}
+.fgrid button{background:none;border:0;padding:0;text-align:left;color:var(--fg)}
+.fgrid button:hover{color:var(--green)}
+.copy{padding-block:18px 28px;font-size:13px;color:var(--soft);border-top:1px solid var(--line)}
+
+/* shop */
+.crumb{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;padding-block:20px 12px}
+.crumb button{background:none;border:0;padding:0;color:var(--green);text-decoration:underline;text-underline-offset:2px}
+.shop-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px}
+.shop-head h1{font-size:clamp(44px,6vw,64px)}
+.select{height:44px;border:1px solid var(--line2);border-radius:10px;padding:0 12px;background:var(--surface);font-size:14px}
+.typebar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.shop{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;padding-bottom:56px}
+.filters{flex:1 1 230px;max-width:100%;display:flex;flex-direction:column;gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.filters fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.filters legend{font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.chk{display:flex;align-items:center;gap:10px;font-size:15px;min-height:28px}
+.chk input{width:18px;height:18px;accent-color:#0F3D2E}
+.results{flex:999 1 560px;min-width:0}
+.empty{background:var(--surface);border:1px dashed var(--line2);border-radius:16px;padding:48px 24px;text-align:center;color:var(--muted)}
+
+/* product */
+.pdp{display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start}
+.gallery{flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.mainimg{aspect-ratio:1/1;max-width:100%;border-radius:20px;background:var(--tile);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mainimg svg{width:76%;height:76%;transition:transform .35s}
+.thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.thumbs button{aspect-ratio:1/1;border-radius:12px;background:var(--tile);border:2px solid transparent;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:700;color:var(--muted)}
+.thumbs button svg{width:70%;height:70%}
+.thumbs button[aria-pressed="true"]{border-color:var(--green)}
+.buy{flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:22px}
+.buy h1{font-size:clamp(40px,5vw,56px)}
+.optgroup{display:flex;flex-direction:column;gap:10px}
+.optgroup .lbl{font-weight:800;font-size:13px;letter-spacing:.06em}
+.optgroup .lbl span{font-weight:600;color:var(--muted);letter-spacing:0}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.textopt{height:48px;border:1px solid var(--line2);border-radius:12px;padding:0 14px;background:var(--surface);font-size:15px;width:100%}
+.stepper{display:flex;align-items:center;border:1px solid var(--line2);border-radius:999px;background:var(--surface);height:52px}
+.stepper button{width:48px;height:50px;border:0;background:transparent;font-size:22px;border-radius:999px;color:var(--fg)}
+.stepper span{min-width:28px;text-align:center;font-weight:800}
+.stepper.sm{height:38px}.stepper.sm button{width:34px;height:36px;font-size:18px}
+.perks{background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.perks div{display:flex;gap:14px;align-items:center;padding:14px 18px;font-size:14px;border-bottom:1px solid var(--line)}
+.perks div:last-child{border-bottom:0}
+.perks svg{flex:none;color:var(--green)}
+.details{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+.details h2{font-size:36px;margin-bottom:14px}
+.details p{margin:0;font-size:16px;line-height:1.7;color:var(--muted);max-width:62ch}
+dl.specs{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+dl.specs dt,dl.specs dd{margin:0;padding:12px 16px;border-bottom:1px solid var(--line)}
+dl.specs dt{font-weight:700}
+dl.specs dt:nth-last-of-type(1),dl.specs dd:last-child{border-bottom:0}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(10,20,16,.45);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--bg);z-index:51;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-shadow:var(--shadow)}
+.drawer.on{transform:none}
+.dhead{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.dhead h2{font-size:32px}
+.dbody{flex:1;overflow:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px}
+.dfoot{border-top:1px solid var(--line);padding:16px 20px;display:flex;flex-direction:column;gap:12px;background:var(--surface)}
+.line{display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px;align-items:start}
+.line .thumb{aspect-ratio:1/1;border-radius:12px;background:var(--tile);display:flex;align-items:center;justify-content:center}
+.line .thumb svg{width:80%;height:80%}
+.line .t{font-weight:700;font-size:15px;line-height:1.35}
+.line .v{font-size:13px;color:var(--muted)}
+.line .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px}
+.rm{background:none;border:0;padding:0;font-size:13px;color:var(--soft);text-decoration:underline}
+.ship-meter{font-size:13px;color:var(--muted)}
+.bar{height:6px;background:var(--sunk);border-radius:999px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:999px;transition:width .3s}
+.tot{display:flex;justify-content:space-between;font-size:15px}
+.tot.big{font-size:20px;font-weight:800}
+
+/* checkout */
+.co{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding-bottom:64px}
+.co form{flex:1 1 520px;min-width:0;display:flex;flex-direction:column;gap:22px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.panel h2{font-size:28px}
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.f{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700}
+.f input,.f select,.f textarea{height:48px;border:1px solid var(--line2);border-radius:12px;padding:0 14px;background:var(--bg);font-weight:500;font-size:15px}
+.f textarea{height:84px;padding:12px 14px;resize:vertical}
+.f .err{font-weight:600;font-size:13px;color:var(--sale);min-height:0}
+.f input[aria-invalid="true"],.f select[aria-invalid="true"]{border-color:var(--sale)}
+.radio{display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line2);border-radius:12px;padding:14px 16px;cursor:pointer}
+.radio:has(input:checked){border-color:var(--green)}
+.radio input{margin-top:4px;accent-color:#0F3D2E;width:18px;height:18px}
+.radio b{display:block}.radio small{color:var(--muted)}
+.summary{flex:1 1 340px;min-width:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 140px)}
+.note{font-size:13px;color:var(--muted);background:var(--sunk);border-radius:10px;padding:10px 12px}
+.done{max-width:640px;margin:48px auto 80px;text-align:center;display:flex;flex-direction:column;gap:16px;align-items:center}
+.done .ok{width:84px;height:84px;border-radius:999px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#0F3D2E}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:#0F3D2E;color:#F6F5F0;padding:14px 20px;border-radius:999px;font-weight:700;z-index:60;display:flex;gap:14px;align-items:center;transition:transform .3s;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0)}
+.toast button{background:#D6E86A;color:#0F3D2E;border:0;border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="promo"><span>Free shipping on orders over <b>$99</b></span><span><b>Free club fitting with any iron set</b></span><span>30-day play guarantee</span></div>
+<header class="site">
+  <div class="wrap hrow">
+    <button class="logo" data-go="home" aria-label="Fairway &amp; Co. home">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2"><circle cx="17" cy="17" r="15"/><path d="M14 25V8l8 4-8 4"/></svg>
+      <span>FAIRWAY &amp; CO.</span>
+    </button>
+    <form class="search" id="searchForm" role="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <label for="q" class="sr">Search products</label>
+      <input id="q" type="search" placeholder="Search drivers, polos, golf balls…" autocomplete="off">
+    </form>
+    <div class="icons">
+      <button class="iconbtn cartbtn" id="cartBtn" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l2.4 11h11L21 8H6.2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+        Cart <span class="badge-n num" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <nav class="wrap cats" id="catNav" aria-label="Shop categories"></nav>
+</header>
+
+<main id="app"></main>
+
+<footer class="site">
+  <div class="wrap fgrid">
+    <div><span class="disp" style="font-size:24px;letter-spacing:.04em">FAIRWAY &amp; CO.</span><span style="color:var(--muted)">Golf clubs, gear, apparel and expert fitting.</span></div>
+    <div><span class="eyebrow">Shop</span><button data-cat="clubs">Clubs</button><button data-cat="balls">Golf Balls</button><button data-cat="apparel">Apparel</button><button data-cat="sale">Sale</button></div>
+    <div><span class="eyebrow">Services</span><span>Club fitting</span><span>Trade-in</span><span>Regripping &amp; repairs</span><span>Buy online, pick up in store</span></div>
+    <div><span class="eyebrow">Help</span><span>Shipping &amp; returns</span><span>Store locator</span><span>Open daily 9am–8pm</span></div>
+  </div>
+  <div class="wrap copy">© Fairway &amp; Co. · Privacy · Terms</div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Cart" aria-hidden="true">
+  <div class="dhead"><h2 class="disp">Your cart</h2><button class="iconbtn" id="closeCart" aria-label="Close cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="dbody" id="cartBody"></div>
+  <div class="dfoot" id="cartFoot"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastBtn">View cart</button></div>
+
+<script>
+(() => {
+/* ---------- product art (inline SVG) ---------- */
+const shaft = (x1,y1,x2,y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#A8B0AC" stroke-width="4" stroke-linecap="round"/><line x1="${x2-(x2-x1)*.16}" y1="${y2-(y2-y1)*.16}" x2="${x2}" y2="${y2}" stroke="#1E2421" stroke-width="10" stroke-linecap="round"/>`;
+const ART = {
+  driver:c=>`${shaft(96,128,172,20)}<path d="M22 150c-4-30 30-44 64-40 30 4 40 22 28 36-14 16-62 22-92 4z" fill="${c}"/><path d="M30 146c20 8 56 6 78-6" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none"/><ellipse cx="70" cy="122" rx="20" ry="5" fill="#fff" fill-opacity=".18"/>`,
+  fairway:c=>`${shaft(92,132,170,22)}<path d="M36 152c-2-22 22-32 48-30 24 2 32 16 22 28-12 12-48 16-70 2z" fill="${c}"/><path d="M42 148c16 6 40 4 58-4" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none"/>`,
+  hybrid:c=>`${shaft(90,134,168,22)}<path d="M44 154c-2-18 16-28 38-26 20 2 28 12 20 24-10 10-40 14-58 2z" fill="${c}"/><path d="M50 150c14 4 32 2 46-4" stroke="#fff" stroke-opacity=".35" stroke-width="3" fill="none"/>`,
+  irons:c=>`${shaft(104,118,172,18)}${shaft(90,122,154,20)}<path d="M40 118l66-8 4 40-70 10c-10-10-10-30 0-42z" fill="${c}"/><path d="M52 126l46-5M52 134l47-5M52 142l48-5" stroke="#fff" stroke-opacity=".4" stroke-width="2"/><path d="M28 124l60-6 3 36-64 8c-8-12-8-26 1-38z" fill="${c}" opacity=".75"/>`,
+  wedge:c=>`${shaft(100,116,170,18)}<path d="M38 112l66-6 6 46c-30 10-60 10-78 4-6-14-4-30 6-44z" fill="${c}"/><path d="M46 122l54-5M46 130l55-5M46 138l56-5M46 146l56-5" stroke="#fff" stroke-opacity=".45" stroke-width="2"/>`,
+  putter:c=>`${shaft(108,128,150,18)}<rect x="40" y="128" width="104" height="26" rx="6" fill="${c}"/><rect x="40" y="128" width="104" height="8" rx="4" fill="#fff" fill-opacity=".22"/><circle cx="92" cy="131" r="2" fill="#fff"/>`,
+  mallet:c=>`${shaft(100,120,146,18)}<path d="M44 126h110c6 0 8 26-4 32-30 10-80 10-104 0-10-6-8-32-2-32z" fill="${c}"/><path d="M74 128v18M100 128v20M126 128v18" stroke="#fff" stroke-opacity=".5" stroke-width="3"/>`,
+  ball:c=>{const b=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="#00000022" stroke-width="2"/>`+[[-.4,-.4],[0,-.5],[.4,-.35],[-.5,0],[-.1,-.1],[.3,.05],[-.35,.4],[.1,.35],[.5,.4]].map(([a,d])=>`<circle cx="${x+a*r}" cy="${y+d*r}" r="${r*.09}" fill="#00000016"/>`).join('')+`<ellipse cx="${x-r*.35}" cy="${y-r*.4}" rx="${r*.25}" ry="${r*.15}" fill="#fff" fill-opacity=".6"/>`;return `<rect x="34" y="40" width="132" height="70" rx="8" fill="#0F3D2E"/><text x="100" y="82" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="22" fill="#D6E86A" letter-spacing="2">TOUR · 12</text>${b(60,140,24)}${b(100,146,24)}${b(140,140,24)}`},
+  polo:c=>`<path d="M70 34l-40 22 14 34 18-8v86h76V82l18 8 14-34-40-22c-4 12-16 20-30 20s-26-8-30-20z" fill="${c}"/><path d="M84 46l16 18 16-18" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="3"/><path d="M100 64v26" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><circle cx="100" cy="72" r="2.5" fill="#fff"/><circle cx="100" cy="82" r="2.5" fill="#fff"/>`,
+  pullover:c=>`<path d="M68 36l-42 24 8 92 20-2 6-68v104h80V82l6 68 20 2 8-92-42-24c-6 8-18 12-32 12s-26-4-32-12z" fill="${c}"/><path d="M100 48v44" stroke="#fff" stroke-opacity=".7" stroke-width="3"/><path d="M84 40l16 10 16-10" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="3"/>`,
+  skort:c=>`<path d="M62 50h76l20 110H42z" fill="${c}"/><rect x="62" y="44" width="76" height="14" rx="3" fill="${c}" style="filter:brightness(.85)"/><path d="M70 60l-10 98M86 60l-4 98M100 60v98M114 60l4 98M130 60l10 98" stroke="#000" stroke-opacity=".12" stroke-width="2"/>`,
+  shoe:c=>`<path d="M24 132c0-14 6-30 22-34 18-4 30-24 50-26 10 0 12 10 22 14 18 8 40 10 54 22 8 8 8 22 0 28H32c-6 0-8-2-8-4z" fill="${c}"/><path d="M24 136h150v10c0 6-4 8-10 8H32c-6 0-8-4-8-8z" fill="#E9E6DC"/><path d="M78 92l10 14M90 86l10 14M102 84l8 14" stroke="#fff" stroke-opacity=".7" stroke-width="3"/>`,
+  bag:c=>`<path d="M76 28c4-10 18-10 22 0M98 24c6-12 22-10 24 2M66 34c0-12 14-14 18-4" stroke="#1E2421" stroke-width="7" stroke-linecap="round" fill="none"/><rect x="62" y="38" width="76" height="134" rx="26" fill="${c}"/><rect x="70" y="70" width="60" height="44" rx="10" fill="#fff" fill-opacity=".18"/><rect x="58" y="42" width="84" height="14" rx="7" fill="#1E2421"/><path d="M62 88c-24 6-26 50 0 56" stroke="#1E2421" stroke-width="5" fill="none"/>`,
+  glove:c=>`<path d="M62 168V96l-8-40c-2-8 10-10 12-2l8 36V40c0-8 12-8 12 0v48l2-56c0-8 12-8 12 0l-1 58 6-50c1-8 13-6 12 2l-6 54 10-30c3-8 14-4 11 4l-14 50v52z" fill="${c}"/><path d="M62 150h68" stroke="#0F3D2E" stroke-width="10"/><circle cx="96" cy="126" r="7" fill="#0F3D2E"/>`,
+  tees:c=>[40,70,100,130,160].map((x,i)=>`<g transform="rotate(${(i-2)*8} ${x} 110)"><path d="M${x-12} 56h24l-8 10v80l-4 10-4-10V66z" fill="${c}"/></g>`).join(''),
+  headcover:c=>`<path d="M58 172c-6-50 0-90 28-108 24-16 54-8 60 18 6 30-6 70-16 90z" fill="${c}"/><circle cx="118" cy="42" r="18" fill="#F6F5F0"/><path d="M60 156h70" stroke="#F6F5F0" stroke-width="6"/><text x="98" y="120" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="800" font-size="30" fill="#F6F5F0">1</text>`,
+  rangefinder:c=>`<rect x="36" y="64" width="128" height="76" rx="18" fill="${c}"/><circle cx="64" cy="102" r="22" fill="#1E2421"/><circle cx="64" cy="102" r="13" fill="#3E6C8A"/><circle cx="60" cy="97" r="4" fill="#fff" fill-opacity=".7"/><rect x="104" y="54" width="34" height="14" rx="5" fill="#D6E86A"/><rect x="100" y="86" width="52" height="30" rx="6" fill="#fff" fill-opacity=".15"/>`,
+  practice:c=>`<path d="M44 76h112l-12 92H56z" fill="${c}"/><path d="M60 76c0-20 80-20 80 0" stroke="#1E2421" stroke-width="6" fill="none"/>`+[[70,72],[92,66],[114,70],[134,74],[80,60],[104,56],[124,62]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="13" fill="#F4D23C" stroke="#00000022" stroke-width="2"/>`).join(''),
+};
+const art = (kind,color,cls='') => `<svg viewBox="0 0 200 200" class="${cls}" aria-hidden="true">${ART[kind](color)}</svg>`;
+
+/* ---------- catalog (USD) ---------- */
+const CATS = [
+  {id:'clubs', name:'Clubs', art:'driver', color:'#2A2F2D'},
+  {id:'balls', name:'Golf Balls', art:'ball', color:'#FFFFFF'},
+  {id:'apparel', name:'Apparel', art:'polo', color:'#1C5C45'},
+  {id:'shoes', name:'Shoes', art:'shoe', color:'#F6F5F0'},
+  {id:'bags', name:'Bags', art:'bag', color:'#0F3D2E'},
+  {id:'acc', name:'Accessories', art:'glove', color:'#FFFFFF'},
+];
+const TYPES = {driver:'Drivers', fairway:'Fairway Woods', hybrid:'Hybrids', irons:'Iron Sets', wedge:'Wedges', putter:'Putters'};
+const TYPE1 = {driver:'Driver', fairway:'Fairway Wood', hybrid:'Hybrid', irons:'Iron Set', wedge:'Wedge', putter:'Putter'};
+const HAND = {name:'Hand', key:'hand', values:['Right','Left']};
+const FLEX = {name:'Shaft flex', key:'flex', values:['Ladies','Senior','Regular','Stiff','X-Stiff'], def:'Regular'};
+const P = [
+  {id:'d1',cat:'clubs',type:'driver',brand:'Kestrel',name:'Carbon Tour Driver',price:599.99,rating:4.8,reviews:212,badge:'New',art:'driver',color:'#22272A',left:true,
+   opts:[HAND,{name:'Loft',key:'loft',values:['9°','10.5°','12°'],def:'10.5°'},FLEX],
+   desc:'A carbon crown pushes weight low and back, and the sliding weight lets you tune ball flight. Built for mid-to-high swing speeds that want a high launch with low spin. Solid sound and clear feedback at impact.',
+   specs:{'Head size':'460 cc','Shaft':'Fujikura Ventus 6','Standard length':'45.5 in','Adjustability':'±2° loft sleeve'}},
+  {id:'d2',cat:'clubs',type:'driver',brand:'Northline',name:'Max Forgiveness Driver',price:499.99,rating:4.7,reviews:356,art:'driver',color:'#1C4A3A',left:true,
+   opts:[HAND,{name:'Loft',key:'loft',values:['10.5°','12°'],def:'10.5°'},FLEX],
+   desc:'Maximum MOI keeps off-center strikes straight and long. A good pick if you want to find more fairways off the tee.',
+   specs:{'Head size':'460 cc','Shaft':'Northline Speed 50','Standard length':'45.75 in','MOI':'10,000+ g·cm²'}},
+  {id:'d3',cat:'clubs',type:'driver',brand:'Ardent',name:'LS Low Spin Driver',price:449.99,was:549.99,rating:4.6,reviews:98,badge:'Sale',art:'driver',color:'#3B3F44',left:false,
+   opts:[{name:'Loft',key:'loft',values:['9°','10.5°'],def:'9°'},{...FLEX,values:['Regular','Stiff','X-Stiff'],def:'Stiff'}],
+   desc:'Forward weighting cuts spin for a flatter, more penetrating flight with extra roll. Best for swing speeds above 105 mph.',
+   specs:{'Head size':'450 cc','Shaft':'Project X HZRDUS','Standard length':'45 in','Hand':'Right hand only'}},
+  {id:'f1',cat:'clubs',type:'fairway',brand:'Kestrel',name:'Speed Fairway Wood',price:299.99,rating:4.7,reviews:141,art:'fairway',color:'#22272A',left:true,
+   opts:[HAND,{name:'Club',key:'loft',values:['3W 15°','5W 18°','7W 21°'],def:'3W 15°'},FLEX],
+   desc:'A shallow face makes it easy to launch from the fairway or light rough. Your go-to for long second shots.',
+   specs:{'Head':'Steel body, carbon crown','Shaft':'Fujikura Ventus 7','Standard length':'43 in'}},
+  {id:'h1',cat:'clubs',type:'hybrid',brand:'Northline',name:'Rescue Hybrid',price:229.99,rating:4.8,reviews:187,art:'hybrid',color:'#1C4A3A',left:true,
+   opts:[HAND,{name:'Club',key:'loft',values:['3H 19°','4H 22°','5H 25°'],def:'4H 22°'},FLEX],
+   desc:'Replaces hard-to-hit long irons. The low center of gravity gets the ball up from rough and fairway bunkers.',
+   specs:{'Head':'17-4 stainless steel','Shaft':'Northline Speed 70','Standard length':'39.75 in'}},
+  {id:'i1',cat:'clubs',type:'irons',brand:'Linksmith',name:'Forged Players Irons 4–PW',price:1299.99,rating:4.9,reviews:76,badge:'Fitting included',art:'irons',color:'#C9CED0',left:true,
+   opts:[HAND,{name:'Shaft',key:'shaft',values:['Steel Stiff','Steel Regular','Graphite Regular'],def:'Steel Stiff'},{name:'Grip',key:'grip',values:['Standard','Midsize','Jumbo'],def:'Standard'}],
+   desc:'One-piece forged from 1025 carbon steel for soft feel and precise control. Includes a free loft-and-lie fitting session in store.',
+   specs:{'Set':'4, 5, 6, 7, 8, 9, PW (7 clubs)','Construction':'1025 carbon steel, forged','Shaft':'True Temper Dynamic Gold','Finish':'Satin chrome'}},
+  {id:'i2',cat:'clubs',type:'irons',brand:'Northline',name:'Game-Improvement Irons 5–GW',price:899.99,rating:4.7,reviews:203,art:'irons',color:'#AEB6B4',left:false,
+   opts:[{name:'Shaft',key:'shaft',values:['Steel Regular','Graphite Regular','Graphite Senior'],def:'Graphite Regular'}],
+   desc:'A wide sole and perimeter weighting make these forgiving and easy to launch. Great for beginner to mid handicaps.',
+   specs:{'Set':'5, 6, 7, 8, 9, PW, GW (7 clubs)','Construction':'Cast stainless steel','Hand':'Right hand only'}},
+  {id:'w1',cat:'clubs',type:'wedge',brand:'Linksmith',name:'Spin Milled Wedge',price:169.99,rating:4.8,reviews:164,art:'wedge',color:'#C9CED0',left:true,
+   opts:[HAND,{name:'Loft',key:'loft',values:['50°','52°','54°','56°','58°','60°'],def:'56°'}],
+   desc:'Milled grooves hold spin even in wet conditions. Choose the loft that fills the gap below your pitching wedge.',
+   specs:{'Bounce':'10°','Construction':'8620 carbon steel, cast','Standard length':'35.25 in'}},
+  {id:'pt1',cat:'clubs',type:'putter',brand:'Ardent',name:'Milled Blade Putter',price:399.99,rating:4.7,reviews:88,badge:'New',art:'putter',color:'#3B3F44',left:true,
+   opts:[HAND,{name:'Length',key:'len',values:['33 in','34 in','35 in'],def:'34 in'}],
+   desc:'CNC-milled from a single block of 303 stainless steel. Fine face milling gives a soft, crisp feel. Suits an arcing stroke.',
+   specs:{'Head weight':'350 g','Hosel':'Plumber neck','Loft':'3°'}},
+  {id:'pt2',cat:'clubs',type:'putter',brand:'Tidewater',name:'High-MOI Mallet Putter',price:279.99,rating:4.6,reviews:121,art:'mallet',color:'#1C4A3A',left:false,
+   opts:[{name:'Length',key:'len',values:['33 in','34 in','35 in'],def:'34 in'}],
+   desc:'A high-MOI mallet head with three-line alignment. A stable choice for a straight-back, straight-through stroke.',
+   specs:{'Head weight':'365 g','Balance':'Face balanced','Hand':'Right hand only'}},
+  {id:'b1',cat:'balls',type:'ball',brand:'Kestrel',name:'Tour Urethane Ball, 12-pack',price:54.99,rating:4.9,reviews:948,badge:'Best seller',art:'ball',color:'#FFFFFF',
+   opts:[{name:'Color',key:'color',values:['White','Yellow'],def:'White'}],
+   desc:'A four-piece build with a urethane cover. Grabs on short-game shots around the green and stays low-spin off the driver.',
+   specs:{'Construction':'4-piece','Cover':'Urethane','Compression':'About 90','Quantity':'12 balls'}},
+  {id:'b2',cat:'balls',type:'ball',brand:'Northline',name:'Soft Distance Ball, 12-pack',price:29.99,rating:4.6,reviews:612,art:'ball',color:'#F4F2E6',
+   opts:[{name:'Color',key:'color',values:['White','Yellow','Orange'],def:'White'}],
+   desc:'A low-compression core helps moderate swing speeds get more distance, with a soft feel.',
+   specs:{'Construction':'2-piece','Cover':'Ionomer','Compression':'About 50','Quantity':'12 balls'}},
+  {id:'b3',cat:'balls',type:'ball',brand:'Fairway & Co.',name:'Personalized Ball, 12-pack',price:59.99,rating:4.7,reviews:203,badge:'Custom',art:'ball',color:'#FFFFFF',
+   opts:[{name:'Personalization',key:'print',text:true,max:16,placeholder:'Name, initials or a date (up to 16 characters)'}],
+   desc:'Print your name, initials or a date on every ball. Makes a great gift or team event favor. Personalized orders ship in about 5 business days.',
+   specs:{'Construction':'3-piece','Imprint':'One color, up to 16 characters','Ships':'In about 5 business days'}},
+  {id:'b4',cat:'balls',type:'ball',brand:'Tidewater',name:'Practice Ball Bucket, 50 balls',price:39.99,rating:4.4,reviews:77,art:'practice',color:'#0F3D2E',opts:[],
+   desc:'Durable practice balls in a carry bucket. Good for a backyard net or chipping practice.',
+   specs:{'Quantity':'50 balls','Includes':'Carry bucket'}},
+  {id:'a1',cat:'apparel',type:'tops',brand:'Fairway & Co.',name:'Performance Piqué Polo',price:64.99,rating:4.6,reviews:318,badge:'New colors',art:'polo',color:'#1C5C45',
+   opts:[{name:'Color',key:'color',values:['Forest','White','Navy'],def:'Forest',swatch:{'Forest':'#1C5C45','White':'#F2F1EC','Navy':'#1F2E4A'}},{name:'Size',key:'size',values:['S','M','L','XL','XXL'],def:'M'}],
+   desc:'Moisture-wicking piqué with four-way stretch, so it never pulls across the shoulders. UPF 50+ sun protection.',
+   specs:{'Fabric':'88% polyester, 12% spandex','Sun protection':'UPF 50+','Care':'Machine wash, do not tumble dry'}},
+  {id:'a2',cat:'apparel',type:'tops',brand:'Northline',name:'Quarter-Zip Pullover',price:89.99,rating:4.7,reviews:142,art:'pullover',color:'#2B3A55',
+   opts:[{name:'Color',key:'color',values:['Navy','Graphite'],def:'Navy',swatch:{'Navy':'#2B3A55','Graphite':'#4A4F52'}},{name:'Size',key:'size',values:['S','M','L','XL','XXL'],def:'M'}],
+   desc:'A brushed interior keeps you warm without bulk. The layer for early tee times and cold-weather rounds.',
+   specs:{'Fabric':'Brushed polyester','Fit':'Athletic','Care':'Machine wash'}},
+  {id:'a3',cat:'apparel',type:'bottoms',brand:'Tidewater',name:'Women’s Pleated Skort',price:74.99,rating:4.8,reviews:96,art:'skort',color:'#C9D6CE',
+   opts:[{name:'Color',key:'color',values:['Mint','White','Black'],def:'Mint',swatch:{'Mint':'#C9D6CE','White':'#F2F1EC','Black':'#22272A'}},{name:'Size',key:'size',values:['XS','S','M','L'],def:'S'}],
+   desc:'Built-in shorts with a phone pocket, and pleats that move freely through the swing.',
+   specs:{'Length':'16 in','Fabric':'Stretch woven','Pockets':'2 inner-short side pockets'}},
+  {id:'s1',cat:'shoes',type:'shoes',brand:'Ardent',name:'Spikeless Golf Shoe',price:129.99,was:159.99,rating:4.5,reviews:233,badge:'Sale',art:'shoe',color:'#F6F5F0',
+   opts:[{name:'Size (US men’s)',key:'size',values:['7','8','9','10','11','12','13'],def:'10'}],
+   desc:'A waterproof upper and multi-directional traction outsole. Wear it from the first tee to the clubhouse.',
+   specs:{'Waterproof':'1-year waterproof warranty','Outsole':'Spikeless rubber','Weight':'About 12 oz (size 10)'}},
+  {id:'g1',cat:'bags',type:'bags',brand:'Fairway & Co.',name:'Lightweight Stand Bag',price:229.99,rating:4.7,reviews:154,art:'bag',color:'#0F3D2E',
+   opts:[{name:'Color',key:'color',values:['Forest','Black','Khaki'],def:'Forest',swatch:{'Forest':'#0F3D2E','Black':'#22272A','Khaki':'#BFAF8A'}}],
+   desc:'Only 4.6 lb, with a 14-way top, dual straps and an insulated cooler pocket. Built for walking rounds.',
+   specs:{'Weight':'4.6 lb','Dividers':'14-way top','Pockets':'8'}},
+  {id:'g2',cat:'bags',type:'bags',brand:'Northline',name:'Cart Bag',price:279.99,rating:4.6,reviews:88,art:'bag',color:'#2B3A55',
+   opts:[{name:'Color',key:'color',values:['Navy','Black'],def:'Navy',swatch:{'Navy':'#2B3A55','Black':'#22272A'}}],
+   desc:'Every pocket faces forward, so you can reach everything while the bag is strapped to a cart.',
+   specs:{'Weight':'7 lb','Dividers':'14-way full length','Pockets':'10'}},
+  {id:'x1',cat:'acc',type:'gloves',brand:'Kestrel',name:'Cabretta Leather Glove',price:24.99,rating:4.7,reviews:402,art:'glove',color:'#FFFFFF',
+   opts:[{name:'Worn on',key:'hand',values:['Left hand (right-handed golfer)','Right hand (left-handed golfer)'],def:'Left hand (right-handed golfer)'},{name:'Size',key:'size',values:['S','M','ML','L','XL'],def:'M'}],
+   desc:'Thin, soft Cabretta leather for a close fit and clear feel on the grip.',
+   specs:{'Material':'Cabretta leather','Quantity':'1 glove'}},
+  {id:'x2',cat:'acc',type:'tees',brand:'Fairway & Co.',name:'Bamboo Tees, 100-pack',price:9.99,rating:4.5,reviews:521,art:'tees',color:'#D9B676',
+   opts:[{name:'Length',key:'len',values:['2⅛ in','2¾ in','3¼ in'],def:'2¾ in'}],
+   desc:'Bamboo lasts longer than wood and is biodegradable.',specs:{'Material':'Bamboo','Quantity':'100 tees'}},
+  {id:'x3',cat:'acc',type:'tech',brand:'Ardent',name:'Laser Rangefinder',price:299.99,rating:4.8,reviews:173,badge:'New',art:'rangefinder',color:'#22272A',opts:[],
+   desc:'Vibrates when it locks onto the flag. Slope mode switches off for tournament play.',
+   specs:{'Range':'5–800 yards','Accuracy':'±1 yard','Magnification':'6×','Battery':'CR2'}},
+  {id:'x4',cat:'acc',type:'headcover',brand:'Linksmith',name:'Leather Driver Headcover',price:49.99,rating:4.7,reviews:65,art:'headcover',color:'#0F3D2E',
+   opts:[{name:'Fits',key:'num',values:['Driver','Fairway wood','Hybrid'],def:'Driver'}],
+   desc:'Synthetic leather with a pom-pom top keeps your club head free of scratches.',specs:{'Material':'PU leather','Fits':'Heads up to 460 cc'}},
+];
+const byId = Object.fromEntries(P.map(p=>[p.id,p]));
+const BRANDS = [...new Set(P.map(p=>p.brand))];
+const FREE_SHIP = 99, SHIP_FEE = 8.95;
+const STATES = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+const STORES = ['Scottsdale, AZ (6 hitting bays)','Austin, TX (putting green)','Charlotte, NC (4 hitting bays)','San Diego, CA'];
+
+/* ---------- state ---------- */
+const store = {
+  get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+let cart = store.get('fw-cart-us',[]).filter(l=>byId[l.id]);
+const S = {view:'home', cat:'all', type:'all', q:'', brands:[], maxPrice:Infinity, leftOnly:false, sort:'featured', pid:null, sel:{}, qty:1, photo:0, homeTab:'clubs', order:null};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const usd = n => '$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const stars = r => '★'.repeat(Math.round(r)) + '☆'.repeat(5-Math.round(r));
+const plural = (n,w) => `${n} ${w}${n===1?'':'s'}`;
+const artOf = (p,sel) => {const o=p.opts.find(o=>o.swatch);const c=o&&sel&&sel[o.key]?o.swatch[sel[o.key]]:(sel&&sel.color==='Yellow'?'#E8F04A':sel&&sel.color==='Orange'?'#F49A3C':p.color);return {kind:p.art,color:c}};
+const catLabel = p => TYPE1[p.type] || CATS.find(c=>c.id===p.cat).name;
+
+function go(view, extra={}){
+  Object.assign(S,{view},extra);
+  render(); window.scrollTo(0,0);
+}
+function openShop(cat='all', extra={}){ go('shop',{cat,type:'all',brands:[],leftOnly:false,maxPrice:Infinity,q:'',...extra}); }
+function openProduct(id){
+  const p=byId[id]; const sel={};
+  p.opts.forEach(o=>{sel[o.key]=o.text?'':(o.def??o.values[0])});
+  go('product',{pid:id,sel,qty:1,photo:0});
+}
+
+/* ---------- nav ---------- */
+function renderNav(){
+  const items=[['all','Shop All'],...CATS.map(c=>[c.id,c.name]),['sale','Sale']];
+  $('#catNav').innerHTML = items.map(([id,n])=>`<button data-cat="${id}" class="${id==='sale'?'sale':''}" aria-current="${S.view==='shop'&&S.cat===id&&!S.q}">${n.toUpperCase()}</button>`).join('');
+}
+
+/* ---------- views ---------- */
+function card(p){
+  const a=artOf(p);
+  return `<article class="card">
+    <button class="open" data-pid="${p.id}" aria-label="${esc(p.name)}, ${usd(p.price)}">
+      <div class="art">${art(a.kind,a.color)}${p.badge?`<span class="tag ${p.was?'sale':''}">${p.badge.toUpperCase()}</span>`:''}</div>
+      <div class="info">
+        <span class="eyebrow">${esc(p.brand)} · ${catLabel(p)}</span>
+        <span class="name">${esc(p.name)}</span>
+        <span class="meta">★ ${p.rating} · ${p.reviews} reviews${p.cat==='clubs'?` · ${p.left?'Right & left hand':'Right hand only'}`:''}</span>
+      </div>
+    </button>
+    <div class="act"><span><span class="price num">${usd(p.price)}</span>${p.was?`<span class="was num">${usd(p.was)}</span>`:''}</span>
+      <button class="quick" data-quick="${p.id}" aria-label="Shop ${esc(p.name)}">${p.opts.length?'Choose options':'Add to cart'}</button></div>
+  </article>`;
+}
+
+function viewHome(){
+  const tabs={clubs:['d1','i1','pt1','w1'],balls:['b1','b2','b3','b4'],apparel:['a1','a2','a3','s1']};
+  return `
+  <section class="wrap" style="padding-block:24px 0">
+    <div class="hero">
+      <div class="hero-copy">
+        <span style="font-size:13px;font-weight:800;letter-spacing:.14em;color:#D6E86A">NEW SEASON DRIVERS ARE HERE</span>
+        <h1>Built for your<br>best round.</h1>
+        <p>Shop clubs, balls and apparel online with free shipping over $99. Not sure on specs? Test the latest clubs in our hitting bays with a free fitting.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
+          <button class="btn btn-accent" data-cat="clubs">SHOP CLUBS</button>
+          <button class="btn btn-ghost" style="color:#F6F5F0" data-cat="balls">SHOP GOLF BALLS</button>
+        </div>
+      </div>
+      <div class="hero-art">${heroArt()}</div>
+    </div>
+  </section>
+  <section class="wrap" style="padding-top:12px">
+    <div class="trust">
+      <div>${ic('shield')}<span><b>30-day play guarantee</b><small>Play it. Love it or return it.</small></span></div>
+      <div>${ic('swap')}<span><b>Trade-in credit</b><small>Online or in store</small></span></div>
+      <div>${ic('store')}<span><b>Free in-store pickup</b><small>Often ready the same day</small></span></div>
+      <div>${ic('truck')}<span><b>Free shipping over $99</b><small>Arrives in 3–5 business days</small></span></div>
+    </div>
+  </section>
+  <section class="wrap sec">
+    <div class="sec-head"><h2 class="disp">Shop by category</h2><button class="linkbtn" data-cat="all">View all</button></div>
+    <div class="catgrid">${CATS.map(c=>`<button class="catcard" data-cat="${c.id}"><div class="art">${art(c.art,c.color,'')}</div><span>${c.name} <span style="color:var(--soft);font-weight:600">(${P.filter(p=>p.cat===c.id).length})</span></span></button>`).join('')}</div>
+  </section>
+  <section class="wrap sec">
+    <div class="sec-head"><h2 class="disp">Trending now</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${[['clubs','Clubs'],['balls','Balls'],['apparel','Apparel & Shoes']].map(([id,l])=>`<button class="pill" data-hometab="${id}" aria-pressed="${S.homeTab===id}">${l}</button>`).join('')}</div></div>
+    <div class="grid">${tabs[S.homeTab].map(id=>card(byId[id])).join('')}</div>
+  </section>
+  <section class="wrap sec">
+    <div class="split">
+      <button class="splitcard" style="background:#D9D3C3" data-cat="apparel">${art('polo','#1C5C45')}<span class="disp">Men’s apparel</span><u>Polos &amp; pullovers</u></button>
+      <button class="splitcard" style="background:#C9D6CE" data-cat="apparel">${art('skort','#F6F5F0')}<span class="disp">Women’s apparel</span><u>Skorts &amp; layers</u></button>
+    </div>
+  </section>
+  <section class="wrap sec">
+    <h2 class="disp" style="font-size:44px;margin-bottom:22px">Top brands</h2>
+    <div class="brands">${BRANDS.map(b=>`<button data-brand="${esc(b)}">${esc(b)}</button>`).join('')}</div>
+  </section>
+  <section class="services"><div class="wrap in">
+    <h2>More than a store. Your game’s home base.</h2>
+    <div class="svc">
+      <div>${ic('target','#D6E86A',34)}<h3>Custom club fitting</h3><p>Launch-monitor fittings with a certified fitter to dial in loft, shaft and lie.</p></div>
+      <div>${ic('swap','#D6E86A',34)}<h3>Trade in your clubs</h3><p>Bring in your old set and get store credit toward something new.</p></div>
+      <div>${ic('wrench','#D6E86A',34)}<h3>Regripping &amp; repairs</h3><p>Fresh grips, loft and lie adjustments and reshafting from our in-store workshop.</p></div>
+      <div>${ic('store','#D6E86A',34)}<h3>Buy online, pick up in store</h3><p>Choose store pickup at checkout. We’ll text you when it’s ready, usually the same day.</p></div>
+    </div></div></section>
+  <section class="wrap news">
+    <div style="display:flex;flex-direction:column;gap:6px;max-width:560px"><h2 class="disp" style="font-size:40px">Join the clubhouse</h2><p style="margin:0;color:var(--muted)">New arrivals, members-only deals and fitting events, straight to your inbox.</p></div>
+    <form id="newsForm"><label for="nemail" class="sr">Email address</label><input id="nemail" type="email" required class="field" style="flex:1 1 240px" placeholder="Email address"><button class="btn btn-primary">SIGN UP</button></form>
+  </section>`;
+}
+
+function filtered(){
+  const q=S.q.trim().toLowerCase();
+  let list=P.filter(p=>
+    (S.cat==='all'||(S.cat==='sale'?!!p.was:p.cat===S.cat)) &&
+    (S.type==='all'||p.type===S.type) &&
+    (!S.brands.length||S.brands.includes(p.brand)) &&
+    p.price<=S.maxPrice &&
+    (!S.leftOnly||p.left) &&
+    (!q||[p.name,p.brand,TYPES[p.type]||'',CATS.find(c=>c.id===p.cat).name,p.desc].join(' ').toLowerCase().includes(q)));
+  const s={low:(a,b)=>a.price-b.price,high:(a,b)=>b.price-a.price,rating:(a,b)=>b.rating-a.rating||b.reviews-a.reviews,reviews:(a,b)=>b.reviews-a.reviews}[S.sort];
+  return s?[...list].sort(s):list;
+}
+function viewShop(){
+  const catName = S.cat==='all'?'Shop All':S.cat==='sale'?'Sale':CATS.find(c=>c.id===S.cat).name;
+  const title = S.q?`Results for “${esc(S.q)}”`:catName;
+  const list=filtered();
+  const maxAll=Math.ceil(Math.max(...P.map(p=>p.price))/50)*50;
+  return `<div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb"><button data-go="home">Home</button><span>/</span><span>${title}</span></nav>
+    <div class="shop-head">
+      <div><h1 class="disp">${title}</h1><p style="margin:8px 0 0;color:var(--muted)"><span class="num">${plural(list.length,'product')}</span>${S.cat==='clubs'?' · Free fitting on eligible clubs':''}</p></div>
+      <div style="display:flex;align-items:center;gap:10px"><label for="sort" style="font-weight:700;font-size:14px">Sort</label>
+        <select id="sort" class="select">${[['featured','Featured'],['low','Price: low to high'],['high','Price: high to low'],['rating','Top rated'],['reviews','Most reviewed']].map(([v,l])=>`<option value="${v}" ${S.sort===v?'selected':''}>${l}</option>`).join('')}</select></div>
+    </div>
+    ${S.cat==='clubs'?`<div class="typebar">${[['all','All clubs'],...Object.entries(TYPES)].map(([id,l])=>`<button class="pill" data-type="${id}" aria-pressed="${S.type===id}">${l}</button>`).join('')}</div>`:''}
+    <div class="shop">
+      <aside class="filters" aria-label="Filters">
+        <fieldset><legend>Brand</legend>${BRANDS.map((b,i)=>`<label class="chk"><input type="checkbox" id="br${i}" data-fbrand="${esc(b)}" ${S.brands.includes(b)?'checked':''}> ${esc(b)} <span style="color:var(--soft);font-size:13px">(${P.filter(p=>p.brand===b&&(S.cat==='all'||p.cat===S.cat||(S.cat==='sale'&&p.was))).length})</span></label>`).join('')}</fieldset>
+        ${S.cat==='clubs'||S.cat==='all'?`<fieldset><legend>Hand</legend><label class="chk"><input type="checkbox" id="leftOnly" ${S.leftOnly?'checked':''}> Available in left hand</label></fieldset>`:''}
+        <div style="display:flex;flex-direction:column;gap:10px"><label for="price" class="eyebrow" style="color:var(--fg)">Max price: <span class="num" id="priceOut">${S.maxPrice>=maxAll?'Any':usd(S.maxPrice)}</span></label>
+          <input id="price" type="range" min="25" max="${maxAll}" step="25" value="${Math.min(S.maxPrice,maxAll)}" style="accent-color:#0F3D2E"></div>
+        <button class="linkbtn" id="clearF" style="align-self:flex-start">Clear filters</button>
+      </aside>
+      <section class="results">${list.length?`<div class="grid">${list.map(card).join('')}</div>`:`<div class="empty"><p style="margin:0 0 14px;font-size:17px;font-weight:700;color:var(--fg)">No products match these filters</p><p style="margin:0 0 18px">Try raising the max price or clearing a brand filter.</p><button class="btn btn-primary" id="clearF2">CLEAR FILTERS</button></div>`}</section>
+    </div></div>`;
+}
+
+const VIEWS=[['Front',''],['Side','scale(-1,1)'],['Detail','scale(1.45) translate(-6%,-10%)'],['Top','rotate(-14deg)']];
+function viewProduct(){
+  const p=byId[S.pid]; const a=artOf(p,S.sel);
+  const cat=CATS.find(c=>c.id===p.cat);
+  const related=P.filter(x=>x.cat!==p.cat).sort((x,y)=>(x.id.charCodeAt(1)+p.id.charCodeAt(1)*3)%7-(y.id.charCodeAt(1)+p.id.charCodeAt(1)*3)%7).slice(0,4);
+  const optHtml=p.opts.map(o=> o.text
+    ? `<div class="optgroup"><label class="lbl" for="opt-${o.key}">${o.name.toUpperCase()} <span>(optional)</span></label><input id="opt-${o.key}" class="textopt" maxlength="${o.max}" placeholder="${esc(o.placeholder)}" value="${esc(S.sel[o.key]||'')}" data-textopt="${o.key}"></div>`
+    : `<div class="optgroup"><span class="lbl">${o.name.toUpperCase()}: <span>${esc(S.sel[o.key])}</span></span><div class="opts">${o.values.map(v=>`<button class="opt" data-opt="${o.key}" data-val="${esc(v)}" aria-pressed="${S.sel[o.key]===v}">${o.swatch?`<span style="display:inline-block;width:14px;height:14px;border-radius:999px;background:${o.swatch[v]};border:1px solid #0003;margin-right:8px;vertical-align:-2px"></span>`:''}${esc(v)}</button>`).join('')}</div></div>`).join('');
+  return `<div class="wrap" style="padding-bottom:64px">
+    <nav class="crumb" aria-label="Breadcrumb"><button data-go="home">Home</button><span>/</span><button data-cat="${cat.id}">${cat.name}</button><span>/</span><span>${esc(p.name)}</span></nav>
+    <div class="pdp">
+      <div class="gallery">
+        <div class="mainimg">${art(a.kind,a.color).replace('<svg ',`<svg style="transform:${VIEWS[S.photo][1]}" `)}</div>
+        <div class="thumbs">${VIEWS.map(([l,t],i)=>`<button data-photo="${i}" aria-pressed="${S.photo===i}" aria-label="Show ${l.toLowerCase()} view">${art(a.kind,a.color).replace('<svg ',`<svg style="transform:${t}" `)}<span>${l}</span></button>`).join('')}</div>
+      </div>
+      <div class="buy">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span class="eyebrow">${esc(p.brand)}</span>
+          <h1 class="disp">${esc(p.name)}</h1>
+          <span style="font-size:14px;color:var(--muted)"><span style="color:#C99A2E">${stars(p.rating)}</span> ${p.rating} · ${p.reviews} reviews</span>
+          <span><span class="num" style="font-size:32px;font-weight:800">${usd(p.price)}</span>${p.was?`<span class="was num" style="font-size:17px">${usd(p.was)}</span> <span style="color:var(--sale);font-weight:800;font-size:14px;margin-left:6px">Save ${usd(p.was-p.price)}</span>`:''}</span>
+          ${p.price>=50?`<span style="font-size:14px;color:var(--muted)">or 4 interest-free payments of <span class="num">${usd(p.price/4)}</span></span>`:''}
+        </div>
+        ${optHtml}
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+          <div class="stepper"><button data-qty="-1" aria-label="Decrease quantity">−</button><span class="num" aria-live="polite">${S.qty}</span><button data-qty="1" aria-label="Increase quantity">+</button></div>
+          <button class="btn btn-primary" style="flex:1 1 220px;height:52px" id="addBtn">ADD TO CART · <span class="num">${usd(p.price*S.qty)}</span></button>
+        </div>
+        <div class="perks">
+          <div>${ic('truck')}<span><b>${p.price>=FREE_SHIP?'Free shipping':'Free shipping over $99'}</b> · arrives in 3–5 business days</span></div>
+          <div>${ic('store')}<span><b>Free in-store pickup</b> · choose a store at checkout</span></div>
+          ${p.cat==='clubs'?`<div>${ic('target')}<span><b>Not sure on specs?</b> Book a free fitting in store</span></div>`:`<div>${ic('shield')}<span><b>Free returns</b> on unused items within 30 days</span></div>`}
+        </div>
+      </div>
+    </div>
+    <section class="details">
+      <div><h2 class="disp">Overview</h2><p>${esc(p.desc)}</p></div>
+      <div><h2 class="disp">Specs</h2><dl class="specs">${Object.entries(p.specs).map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}${p.opts.filter(o=>!o.text).map(o=>`<dt>${o.name}</dt><dd>${esc(S.sel[o.key])}</dd>`).join('')}</dl></div>
+    </section>
+    <section style="margin-top:56px"><h2 class="disp" style="font-size:36px;margin-bottom:20px">Complete your bag</h2><div class="grid">${related.map(card).join('')}</div></section>
+  </div>`;
+}
+
+const subtotal = () => cart.reduce((s,l)=>s+byId[l.id].price*l.qty,0);
+const shipFee = (sub,ship) => ship==='store'||sub>=FREE_SHIP?0:SHIP_FEE;
+function lineDesc(l){const p=byId[l.id];return p.opts.map(o=>o.text?(l.sel[o.key]?`Imprint: ${l.sel[o.key]}`:''):l.sel[o.key]).filter(Boolean).join(' · ')}
+
+function viewCheckout(){
+  if(!cart.length) return `<div class="wrap"><div class="done"><h1 class="disp" style="font-size:48px">Your cart is empty</h1><p style="color:var(--muted);margin:0">Add a few things you like first.</p><button class="btn btn-primary" data-cat="all">START SHOPPING</button></div></div>`;
+  const f=S.form||{ship:'home',pay:'link'};
+  const sub=subtotal(); const fee=shipFee(sub,f.ship);
+  return `<div class="wrap">
+    <nav class="crumb" aria-label="Breadcrumb"><button data-go="home">Home</button><span>/</span><span>Checkout</span></nav>
+    <h1 class="disp" style="font-size:clamp(44px,6vw,64px);margin-bottom:22px">Checkout</h1>
+    <div class="co">
+      <form id="coForm" novalidate>
+        <div class="panel"><h2 class="disp">1 · Contact</h2>
+          <div class="frow">
+            <div class="f"><label for="cname">Full name</label><input id="cname" autocomplete="name" value="${esc(f.cname||'')}"><span class="err" id="e-cname"></span></div>
+            <div class="f"><label for="cphone">Phone</label><input id="cphone" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" value="${esc(f.cphone||'')}"><span class="err" id="e-cphone"></span></div>
+          </div>
+          <div class="f"><label for="cemail">Email</label><input id="cemail" type="email" autocomplete="email" value="${esc(f.cemail||'')}"><span class="err" id="e-cemail"></span></div>
+        </div>
+        <div class="panel"><h2 class="disp">2 · Delivery</h2>
+          <label class="radio"><input type="radio" name="ship" value="home" ${f.ship==='home'?'checked':''}><span><b>Ship to my address</b><small>3–5 business days · ${sub>=FREE_SHIP?'Free':usd(SHIP_FEE)+', free over $99'}</small></span></label>
+          <label class="radio"><input type="radio" name="ship" value="store" ${f.ship==='store'?'checked':''}><span><b>Pick up in store</b><small>Free · we’ll text you when it’s ready</small></span></label>
+          ${f.ship==='home'
+            ?`<div class="f"><label for="caddr">Street address</label><input id="caddr" autocomplete="street-address" value="${esc(f.caddr||'')}"><span class="err" id="e-caddr"></span></div>
+              <div class="frow"><div class="f"><label for="ccity">City</label><input id="ccity" autocomplete="address-level2" value="${esc(f.ccity||'')}"><span class="err" id="e-ccity"></span></div>
+               <div class="f"><label for="cstate">State</label><select id="cstate" autocomplete="address-level1">${['',...STATES].map(c=>`<option value="${c}" ${f.cstate===c?'selected':''}>${c||'Select'}</option>`).join('')}</select><span class="err" id="e-cstate"></span></div>
+               <div class="f"><label for="czip">ZIP code</label><input id="czip" inputmode="numeric" autocomplete="postal-code" value="${esc(f.czip||'')}"><span class="err" id="e-czip"></span></div></div>`
+            :`<div class="f"><label for="cstore">Pickup store</label><select id="cstore">${['',...STORES].map(c=>`<option value="${c}" ${f.cstore===c?'selected':''}>${c||'Select a store'}</option>`).join('')}</select><span class="err" id="e-cstore"></span></div>`}
+        </div>
+        <div class="panel"><h2 class="disp">3 · Payment</h2>
+          <label class="radio"><input type="radio" name="pay" value="link" ${f.pay!=='store'?'checked':''}><span><b>Secure payment link by email</b><small>We’ll email a link to pay by card or PayPal before your order ships</small></span></label>
+          ${f.ship==='store'?`<label class="radio"><input type="radio" name="pay" value="store" ${f.pay==='store'?'checked':''}><span><b>Pay at pickup</b><small>Pay by card or cash when you collect your order</small></span></label>`:''}
+          <div class="f"><label for="cnote">Order notes (optional)</label><textarea id="cnote" placeholder="Gate code, delivery instructions…">${esc(f.cnote||'')}</textarea></div>
+          <p class="note" style="margin:0">This is a demo store. Placing an order won’t charge you or ship anything.</p>
+        </div>
+        <button class="btn btn-primary" style="height:58px;font-size:17px">PLACE ORDER · <span class="num">${usd(sub+fee)}</span></button>
+      </form>
+      <aside class="summary panel"><h2 class="disp">Order summary</h2>
+        ${cart.map(l=>{const p=byId[l.id],a=artOf(p,l.sel);return `<div class="line"><div class="thumb">${art(a.kind,a.color)}</div><div><div class="t">${esc(p.name)}</div><div class="v">${esc(lineDesc(l))}${lineDesc(l)?' · ':''}Qty ${l.qty}</div><div class="num" style="font-weight:800;margin-top:4px">${usd(p.price*l.qty)}</div></div></div>`}).join('')}
+        <div style="border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px">
+          <div class="tot"><span>Subtotal</span><span class="num">${usd(sub)}</span></div>
+          <div class="tot"><span>Shipping</span><span class="num">${fee?usd(fee):'Free'}</span></div>
+          <div class="tot"><span>Estimated tax</span><span>Calculated on payment</span></div>
+          <div class="tot big"><span>Total</span><span class="num">${usd(sub+fee)}</span></div>
+        </div>
+        <button class="linkbtn" id="editCart" style="align-self:flex-start">Edit cart</button>
+      </aside>
+    </div></div>`;
+}
+
+function viewDone(){
+  const o=S.order;
+  return `<div class="wrap"><div class="done">
+    <div class="ok"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h1 class="disp" style="font-size:56px">Order placed</h1>
+    <p style="margin:0;color:var(--muted);font-size:16px">Thanks, ${esc(o.name)}! Your order number is <b class="num" style="color:var(--fg)">${o.no}</b>: ${plural(o.count,'item')}, <b class="num" style="color:var(--fg)">${usd(o.total)}</b> total.</p>
+    <p class="note">${o.ship==='store'?`We’ll text you when your order is ready to pick up at ${esc(o.where)}.`:`Your order should arrive in ${esc(o.where)} in 3–5 business days.`}${o.pay==='link'?' A payment link is on its way to your inbox.':''} (Demo store: nothing will ship.)</p>
+    <button class="btn btn-primary" data-go="home">KEEP SHOPPING</button>
+  </div></div>`;
+}
+
+/* ---------- icons ---------- */
+function ic(n,stroke='currentColor',s=26){
+  const d={shield:'<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',swap:'<path d="M4 7h13l-3-3M20 17H7l3 3"/>',store:'<path d="M3 9l9-6 9 6v11H3z"/><path d="M9 20v-6h6v6"/>',truck:'<path d="M3 7h12v10H3zM15 10h4l2 3v4h-6"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>',target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',wrench:'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5z"/>'}[n];
+  return `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.8" aria-hidden="true">${d}</svg>`;
+}
+function heroArt(){
+  return `<svg viewBox="0 0 600 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C4A3A"/><stop offset=".55" stop-color="#6E8B4E"/><stop offset="1" stop-color="#E9C97A"/></linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF4C8"/><stop offset="1" stop-color="#FFF4C8" stop-opacity="0"/></radialGradient></defs>
+    <rect width="600" height="480" fill="url(#sky)"/>
+    <circle cx="420" cy="300" r="140" fill="url(#sun)"/><circle cx="420" cy="300" r="44" fill="#FFEFB0"/>
+    <path d="M0 300c120-40 240-30 360 0s200 20 240 0v180H0z" fill="#3E6B45"/>
+    <path d="M0 340c140-30 300-20 420 10s150 10 180 0v130H0z" fill="#2C5A3C"/>
+    <ellipse cx="380" cy="352" rx="90" ry="16" fill="#8BBF5A"/>
+    <line x1="400" y1="350" x2="400" y2="226" stroke="#F6F5F0" stroke-width="4"/>
+    <path d="M400 228l52 16-52 16z" fill="#D6E86A"/>
+    <path d="M0 400c160-24 360-20 600 10v70H0z" fill="#1C4A3A"/>
+    <rect x="148" y="400" width="8" height="30" fill="#F6F5F0"/><circle cx="152" cy="388" r="16" fill="#FFFFFF"/>
+    <circle cx="146" cy="383" r="4" fill="#fff" opacity=".8"/>
+  </svg>`;
+}
+
+/* ---------- cart ---------- */
+function saveCart(){store.set('fw-cart-us',cart); renderCart();}
+function addToCart(id,sel,qty){
+  const key=id+'|'+JSON.stringify(sel);
+  const ex=cart.find(l=>l.key===key);
+  if(ex) ex.qty+=qty; else cart.push({key,id,sel,qty});
+  saveCart(); toast(`Added to cart: ${byId[id].name}${qty>1?' ×'+qty:''}`);
+}
+function renderCart(){
+  const n=cart.reduce((s,l)=>s+l.qty,0);
+  $('#cartCount').textContent=n; $('#cartBtn').setAttribute('aria-label',`Cart, ${plural(n,'item')}`);
+  const sub=subtotal();
+  $('#cartBody').innerHTML = cart.length ? cart.map((l,i)=>{const p=byId[l.id],a=artOf(p,l.sel);return `<div class="line">
+      <button class="thumb" style="border:0;padding:0" data-pid="${p.id}" aria-label="View ${esc(p.name)}">${art(a.kind,a.color)}</button>
+      <div><div class="t">${esc(p.name)}</div><div class="v">${esc(lineDesc(l))||'&nbsp;'}</div>
+        <div class="row"><div class="stepper sm"><button data-cq="${i}" data-d="-1" aria-label="Decrease quantity">−</button><span class="num">${l.qty}</span><button data-cq="${i}" data-d="1" aria-label="Increase quantity">+</button></div>
+        <span class="num" style="font-weight:800">${usd(p.price*l.qty)}</span></div>
+        <button class="rm" data-rm="${i}">Remove</button></div></div>`}).join('')
+    : `<div class="empty" style="margin-top:12px"><p style="margin:0 0 14px;font-weight:700;color:var(--fg)">Your cart is empty</p><button class="btn btn-primary" data-cat="all">START SHOPPING</button></div>`;
+  const left=Math.max(0,FREE_SHIP-sub);
+  $('#cartFoot').innerHTML = cart.length ? `
+    <div class="ship-meter">${left?`You’re <b class="num" style="color:var(--fg)">${usd(left)}</b> away from free shipping`:'<b style="color:var(--ok)">You’ve earned free shipping ✓</b>'}<div class="bar"><i style="width:${Math.min(100,sub/FREE_SHIP*100)}%"></i></div></div>
+    <div class="tot big"><span>Subtotal</span><span class="num">${usd(sub)}</span></div>
+    <button class="btn btn-primary" id="toCheckout">CHECKOUT</button>` : '';
+  $('#cartFoot').hidden=!cart.length;
+}
+let drawerReturn=null;
+function openCart(){drawerReturn=document.activeElement;$('#drawer').classList.add('on');$('#scrim').classList.add('on');$('#drawer').setAttribute('aria-hidden','false');setTimeout(()=>$('#closeCart').focus(),50)}
+function closeCart(){$('#drawer').classList.remove('on');$('#scrim').classList.remove('on');$('#drawer').setAttribute('aria-hidden','true');drawerReturn&&drawerReturn.focus&&drawerReturn.focus()}
+let tt;function toast(m){$('#toastMsg').textContent=m;$('#toast').classList.add('on');clearTimeout(tt);tt=setTimeout(()=>$('#toast').classList.remove('on'),3200)}
+
+/* ---------- render ---------- */
+function render(){
+  renderNav();
+  $('#app').innerHTML = {home:viewHome,shop:viewShop,product:viewProduct,checkout:viewCheckout,done:viewDone}[S.view]();
+  document.title = S.view==='product'?`${byId[S.pid].name} · Fairway & Co.`:'Fairway & Co. Golf Store';
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');
+  if(!t) return;
+  const d=t.dataset;
+  if(d.go){ if(d.go==='home'){closeCart();go('home');} return; }
+  if(d.cat!==undefined){ closeCart(); $('#q').value=''; openShop(d.cat); return; }
+  if(d.brand){ openShop('all',{brands:[d.brand]}); return; }
+  if(d.pid){ closeCart(); openProduct(d.pid); return; }
+  if(d.quick){ const p=byId[d.quick]; if(p.opts.length) openProduct(p.id); else addToCart(p.id,{},1); return; }
+  if(d.hometab){ S.homeTab=d.hometab; render(); document.querySelector(`[data-hometab="${d.hometab}"]`).focus(); return; }
+  if(d.type){ S.type=d.type; render(); return; }
+  if(d.opt){ S.sel[d.opt]=d.val; render(); document.querySelector(`[data-opt="${d.opt}"][data-val="${CSS.escape(d.val)}"]`)?.focus(); return; }
+  if(d.photo){ S.photo=+d.photo; render(); return; }
+  if(d.qty){ S.qty=Math.max(1,Math.min(20,S.qty+ +d.qty)); render(); document.querySelector(`[data-qty="${d.qty}"]`).focus(); return; }
+  if(t.id==='addBtn'){ addToCart(S.pid,{...S.sel},S.qty); return; }
+  if(d.cq!==undefined){ const l=cart[+d.cq]; l.qty=Math.max(1,Math.min(20,l.qty+ +d.d)); saveCart(); return; }
+  if(d.rm!==undefined){ cart.splice(+d.rm,1); saveCart(); if(S.view==='checkout')render(); return; }
+  if(t.id==='cartBtn'){ openCart(); return; }
+  if(t.id==='closeCart'){ closeCart(); return; }
+  if(t.id==='toastBtn'){ $('#toast').classList.remove('on'); openCart(); return; }
+  if(t.id==='toCheckout'){ closeCart(); go('checkout'); return; }
+  if(t.id==='editCart'){ openCart(); return; }
+  if(t.id==='clearF'||t.id==='clearF2'){ Object.assign(S,{brands:[],leftOnly:false,maxPrice:Infinity,type:'all'}); render(); return; }
+});
+$('#scrim').addEventListener('click',closeCart);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&$('#drawer').classList.contains('on')) closeCart(); });
+
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='sort'){ S.sort=t.value; render(); $('#sort').focus(); }
+  else if(t.dataset.fbrand){ const b=t.dataset.fbrand; S.brands=t.checked?[...S.brands,b]:S.brands.filter(x=>x!==b); render(); document.getElementById(t.id)?.focus(); }
+  else if(t.id==='leftOnly'){ S.leftOnly=t.checked; render(); $('#leftOnly').focus(); }
+  else if(t.id==='price'){ render(); $('#price').focus(); }
+  else if(t.name==='ship'||t.name==='pay'){ const f={...readForm(),[t.name]:t.value}; if(f.ship==='home'&&f.pay==='store')f.pay='link'; S.form=f; render(); document.querySelector(`input[name="${t.name}"][value="${t.value}"]`)?.focus(); }
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.id==='price'){ const max=+t.max; S.maxPrice=+t.value>=max?Infinity:+t.value; $('#priceOut').textContent=S.maxPrice===Infinity?'Any':usd(S.maxPrice); }
+  if(t.dataset.textopt){ S.sel[t.dataset.textopt]=t.value; }
+});
+$('#searchForm').addEventListener('submit',e=>{ e.preventDefault(); const q=$('#q').value.trim(); closeCart(); go('shop',{cat:'all',type:'all',brands:[],leftOnly:false,maxPrice:Infinity,q}); });
+$('#q').addEventListener('search',()=>{ if(!$('#q').value && S.view==='shop' && S.q){ S.q=''; render(); } });
+
+function readForm(){
+  const prev=S.form||{};
+  const v=id=>{const el=document.getElementById(id);return el?el.value:(prev[id]||'')};
+  return {...prev,cname:v('cname'),cphone:v('cphone'),cemail:v('cemail'),caddr:v('caddr'),ccity:v('ccity'),cstate:v('cstate'),czip:v('czip'),cstore:v('cstore'),cnote:v('cnote'),
+    ship:document.querySelector('input[name="ship"]:checked')?.value||'home',pay:document.querySelector('input[name="pay"]:checked')?.value||'link'};
+}
+document.addEventListener('submit',e=>{
+  if(e.target.id==='newsForm'){ e.preventDefault(); e.target.innerHTML='<p style="margin:0;font-weight:700;color:var(--ok)">You’re in! Watch your inbox for new arrivals and deals.</p>'; return; }
+  if(e.target.id!=='coForm') return;
+  e.preventDefault();
+  const f=readForm(); S.form=f;
+  const errs={};
+  if(!f.cname.trim()) errs.cname='Enter your full name';
+  if(f.cphone.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,'').length!==10) errs.cphone='Enter a 10-digit US phone number';
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.cemail.trim())) errs.cemail='Enter a valid email. Your order confirmation goes here.';
+  if(f.ship==='home'){
+    if(!f.caddr.trim()) errs.caddr='Enter your street address';
+    if(!f.ccity.trim()) errs.ccity='Enter your city';
+    if(!f.cstate) errs.cstate='Select a state';
+    if(!/^\d{5}(-\d{4})?$/.test(f.czip.trim())) errs.czip='Enter a 5-digit ZIP code';
+  } else if(!f.cstore) errs.cstore='Select a pickup store';
+  document.querySelectorAll('#coForm .err').forEach(el=>el.textContent='');
+  document.querySelectorAll('#coForm [aria-invalid]').forEach(el=>el.removeAttribute('aria-invalid'));
+  const keys=Object.keys(errs);
+  if(keys.length){ keys.forEach(k=>{ $('#e-'+k).textContent=errs[k]; document.getElementById(k).setAttribute('aria-invalid','true'); }); document.getElementById(keys[0]).focus(); return; }
+  const sub=subtotal(); const fee=shipFee(sub,f.ship);
+  const d=new Date();
+  S.order={no:'FW'+d.getFullYear().toString().slice(2)+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+Math.floor(1000+Math.random()*9000),
+    name:f.cname.trim().split(/\s+/)[0],count:cart.reduce((s,l)=>s+l.qty,0),total:sub+fee,ship:f.ship,pay:f.pay,where:f.ship==='store'?f.cstore:`${f.ccity.trim()}, ${f.cstate}`};
+  cart=[]; saveCart(); S.form=null; go('done');
+});
+
+renderCart(); render();
+})();
+</script>
+
+</body></html>
